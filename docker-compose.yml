@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  php_apache:
+    build: .
+    volumes:
+      - ./laravel:/var/www/html/api
+      - ./frontend:/var/www/html/frontend
+    ports:
+      - 80:8000
+      - 8000:80
+      - 4173:4173
+    depends_on:
+      - db
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: root
+    volumes:
+      - ./dbStorage:/var/lib/postgresql/data
